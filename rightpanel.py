@@ -11,7 +11,7 @@ class RightPanel:
         self.sample_label = self.sysui.ui.font.render("Sample", True, (0, 0, 0))
         self.sysui.ui.screen.blit(self.sample_label, self.sample_label.get_rect(center=(self.right_rect.centerx, self.right_rect.top - 20)))
         self.draw_btn()
-        pygame.display.update()
+        # pygame.display.update()
 
     def draw_btn(self):
         # === GO AGAINST BUTTON (inside sample panel at bottom center) ===

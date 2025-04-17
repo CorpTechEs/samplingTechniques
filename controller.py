@@ -16,7 +16,7 @@ class Controller:
         self.last_spoke_hit = None
 
     def update(self):
-        self.UI.screen.fill((255, 255, 255))  # Black background
+        # self.UI.screen.fill((255, 255, 255))  # Black background
         keys = pygame.key.get_pressed()
 
         if keys[pygame.K_SPACE]:

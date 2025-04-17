@@ -10,4 +10,4 @@ class LeftPanel:
         pygame.draw.rect(self.sysui.ui.screen, (190, 190, 190), self.left_rect, 3)
         self.pop_label = self.sysui.ui.font.render("Population", True, (0, 0, 0))
         self.sysui.ui.screen.blit(self.pop_label, self.pop_label.get_rect(center=(self.left_rect.centerx, self.left_rect.top - 20)))
-        pygame.display.update()
+        # pygame.display.update()
