@@ -169,6 +169,3 @@ class Controller:
         elements = self.view.get_elements(self.model.angular_velocity, self.last_spoke_hit)
         for label, pos in elements:
             self.view.screen.blit(label, pos)
-
-        # Flip display
-        pygame.display.flip()

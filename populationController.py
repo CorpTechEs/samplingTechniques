@@ -38,3 +38,4 @@ class PopulationController:
 
             # Blit onto the screen
             self.PopulationPanel.screen.blit(symbol_surf, symbol_rect)
+        
