@@ -28,4 +28,3 @@ class SampleTechniqueController:
     
     def draw_btn(self):
         self.view.draw_btn()
-        pygame.display.flip()
