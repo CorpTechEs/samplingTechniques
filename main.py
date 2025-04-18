@@ -16,17 +16,22 @@ Jars = CollectionJarController()
 
 while True:
     controller.view.screen.fill((255, 255, 255))  # Black background
+
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
             exit()
+        SampleTechnique.handle_event(event)
 
     PopulationPanel.draw_pop()
     SamplePanel.draw_samp()
-    SampleTechnique.draw_btn()
+    SampleTechnique.draw()
     Jars.draw_jar()
 
-    controller.update()
+    if SampleTechnique.model.locked:
+        controller.update()
+    else:
+        print("Select a sampling technique first!")
 
     # Rotate and draw the circle
     # controller.rotate_and_draw_circle()

@@ -7,24 +7,41 @@ class SampleTechniqueController:
         self.model = SampleTechniqueModel()
         self.view = TechniqueButton()
 
-    def handle_click(self, pos):
+    def handle_event(self, event):
+        """
+        Process a pygame event: handle clicks and any future events (e.g., hover).
+        """
+        if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+            self._handle_click(event)
+
+    def _handle_click(self, event):
+        """
+        Select a technique if unlocked and a button was clicked.
+        """
+        btn = None
+
         if self.model.locked:
             return
 
-        for i, rect in enumerate(self.view.get_button_rects()):
-            if rect.collidepoint(pos):
-                selected = self.model.techniques[i]
-                self.model.select_technique(selected)
-                self.view.highlight_selected(i)
-                print(f"Selected technique: {selected}")
-                break
+        btn = self.view.handle_event(event)
+
+        if btn is not None:
+            self.model.select_technique(btn[0])
+            self.lock_selection()
+    
 
     def lock_selection(self):
+        """Prevent further selection."""
         self.model.lock()
 
     def reset(self):
+        """Reset the model and clear the view selection."""
         self.model.reset()
         self.view.reset_buttons()
-    
-    def draw_btn(self):
+
+    def draw(self):
+        """
+        Draw the technique buttons to the screen.
+        """
         self.view.draw_btn()
+
