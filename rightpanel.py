@@ -22,17 +22,19 @@ class RightPanel:
         go_label = self.sysui.ui.font.render("Go Against", True, (255, 255, 255))
         self.sysui.ui.screen.blit(go_label, go_label.get_rect(center=(go_btn_x + go_btn_width // 2, go_btn_y + go_btn_height // 2)))
 
-    # def draw_samples(self, screen, user_sample, system_sample):
-    #     # Draw user sample (red)
-    #     for i, _ in enumerate(user_sample):
-    #         rect = pygame.Rect(self.user_x, self.y + i * (self.box_size + self.gap), self.box_size, self.box_size)
-    #         pygame.draw.rect(screen, (255, 102, 102), rect)
 
-    #     # Draw system sample (blue)
-    #     for i, _ in enumerate(system_sample):
-    #         rect = pygame.Rect(self.system_x, self.y + i * (self.box_size + self.gap), self.box_size, self.box_size)
-    #         pygame.draw.rect(screen, (102, 178, 255), rect)
 
-    # def draw_result(self, screen, result_text):
-    #     text_surface = self.font.render(result_text, True, (0, 0, 0))
-    #     screen.blit(text_surface, (400, 400))
+            # def draw_samples(self, screen, user_sample, system_sample):
+            #     # Draw user sample (red)
+            #     for i, _ in enumerate(user_sample):
+            #         rect = pygame.Rect(self.user_x, self.y + i * (self.box_size + self.gap), self.box_size, self.box_size)
+            #         pygame.draw.rect(screen, (255, 102, 102), rect)
+
+            #     # Draw system sample (blue)
+            #     for i, _ in enumerate(system_sample):
+            #         rect = pygame.Rect(self.system_x, self.y + i * (self.box_size + self.gap), self.box_size, self.box_size)
+            #         pygame.draw.rect(screen, (102, 178, 255), rect)
+
+            # def draw_result(self, screen, result_text):
+            #     text_surface = self.font.render(result_text, True, (0, 0, 0))
+            #     screen.blit(text_surface, (400, 400))

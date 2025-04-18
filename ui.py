@@ -53,4 +53,3 @@ class UI:
             self.draw_text(f"Last Hit: {last_spoke_hit.data}", (10, 10))
         
         # pygame.display.flip()
-

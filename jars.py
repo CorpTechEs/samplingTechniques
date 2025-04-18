@@ -19,4 +19,3 @@ class CollectionJar:
             pygame.draw.line(self.sysui.ui.screen, (0, 0, 0), (x, self.u_y_top), (x, self.u_y_top + self.u_box_size), 3)
             pygame.draw.line(self.sysui.ui.screen, (0, 0, 0), (x, self.u_y_top + self.u_box_size), (x + self.u_box_size, self.u_y_top + self.u_box_size), 3)
             pygame.draw.line(self.sysui.ui.screen, (0, 0, 0), (x + self.u_box_size, self.u_y_top), (x + self.u_box_size, self.u_y_top + self.u_box_size), 3)
-        # pygame.display.update()
