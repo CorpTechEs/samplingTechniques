@@ -1,7 +1,5 @@
 # Model | Data Processing
 from collections import defaultdict
-import pygame
-import math
 import random
 
 class PopulationModel:

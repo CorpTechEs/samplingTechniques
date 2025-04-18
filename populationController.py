@@ -1,5 +1,6 @@
 # Model | Data Processing
 import pygame
+import pygame.freetype
 from population import PopulationModel
 from leftpanel import LeftPanel
 
@@ -14,13 +15,26 @@ class PopulationController:
         self.population = self.Population.generate_population()
 
     def draw_pop(self):
+        # First draw the panel background, borders, etc.
         self.PopulationPanel.draw()
-        # Mock shapes for population going to model or controller
-        for i in self.population:
-            font = self.PopulationPanel.font   # Reuse the existing UI font
-            symbol_surface = font.render(i['shape'], True, i['color'])  # Black color text
-            symbol_rect = symbol_surface.get_rect(center=(
-                self.PopulationPanel.panel_padding + 30,
-                self.PopulationPanel.panel_top + 30 + i['id'] + 1 * 60
-            ))
-            self.PopulationPanel.screen.blit(symbol_surface, symbol_rect)
+
+        # Configuration: tweak these values to taste
+        PADDING_X = self.PopulationPanel.panel_padding + 40
+        PADDING_Y = self.PopulationPanel.panel_top + 40
+
+        # Create a bigger emoji-capable font
+        icon_font = pygame.freetype.SysFont("Segoe UI Emoji", self.PopulationPanel.ICON_FONT_SIZE)
+
+        for idx, item in enumerate(self.population):
+            # Render returns (surface, rect)
+            symbol_surf, _ = icon_font.render(item['shape'], item['color'])
+
+            # Position each icon in a vertical list, spaced out
+            x = PADDING_X
+            y = PADDING_Y + idx * self.PopulationPanel.VERTICAL_SPACING
+
+            # Use get_rect() on the surface only
+            symbol_rect = symbol_surf.get_rect(center=(x, y))
+
+            # Blit onto the screen
+            self.PopulationPanel.screen.blit(symbol_surf, symbol_rect)

@@ -6,8 +6,8 @@ from populationController import PopulationController
 # from jarController import CollectionJarController
 
 pygame.init()
-controller = Controller(10)
-PopulationPanel = PopulationController(population_size=10)
+controller = Controller(20)
+PopulationPanel = PopulationController(population_size=20)
 PopulationPanel.create_population()
 
 # SamplePanel = SampleController(sample_size=5)
