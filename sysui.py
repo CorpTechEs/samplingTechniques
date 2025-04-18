@@ -10,6 +10,8 @@ class PanelUI(UI):
         self.panel_top = 130
         self.center_x = self.width // 2
         self.center_y = self.height // 2 + 20
+        self.ICON_FONT_SIZE = 20
+        self.VERTICAL_SPACING = 25
     
     def get_elements(self):
         """

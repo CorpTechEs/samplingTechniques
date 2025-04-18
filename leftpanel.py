@@ -4,8 +4,8 @@ from sysui import PanelUI
 class LeftPanel(PanelUI):
     def __init__(self):
         super().__init__()
-        self.ICON_FONT_SIZE = 20
-        self.VERTICAL_SPACING = 25
+        # self.ICON_FONT_SIZE = 20
+        # self.VERTICAL_SPACING = 25
 
     def draw(self):
         self.left_rect = pygame.Rect(self.panel_padding, self.panel_top, self.panel_width, self.panel_height)

@@ -1,26 +1,25 @@
 import pygame
-from sysui import SysUI
+from sysui import PanelUI
 
-class RightPanel:
+class RightPanel(PanelUI):
     def __init__(self):
-        self.sysui = SysUI()
+        super().__init__()
 
     def draw(self):
-        self.right_rect = pygame.Rect(self.sysui.ui.width - self.sysui.panel_padding - self.sysui.panel_width, self.sysui.panel_top, self.sysui.panel_width, self.sysui.panel_height)
-        pygame.draw.rect(self.sysui.ui.screen, (190, 190, 190), self.right_rect, 3)
-        self.sample_label = self.sysui.ui.font.render("Sample", True, (0, 0, 0))
-        self.sysui.ui.screen.blit(self.sample_label, self.sample_label.get_rect(center=(self.right_rect.centerx, self.right_rect.top - 20)))
+        self.right_rect = pygame.Rect(self.width - self.panel_padding - self.panel_width, self.panel_top, self.panel_width, self.panel_height)
+        pygame.draw.rect(self.screen, (190, 190, 190), self.right_rect, 3)
+        self.sample_label = self.font.render("Sample", True, (0, 0, 0))
+        self.screen.blit(self.sample_label, self.sample_label.get_rect(center=(self.right_rect.centerx, self.right_rect.top - 20)))
         self.draw_btn()
-        # pygame.display.update()
 
     def draw_btn(self):
         # === GO AGAINST BUTTON (inside sample panel at bottom center) ===
         go_btn_width, go_btn_height = 100, 30
         go_btn_x = self.right_rect.centerx - go_btn_width // 2
         go_btn_y = self.right_rect.bottom - go_btn_height - 10
-        pygame.draw.rect(self.sysui.ui.screen, (0, 128, 255), (go_btn_x, go_btn_y, go_btn_width, go_btn_height))
-        go_label = self.sysui.ui.font.render("Go Against", True, (255, 255, 255))
-        self.sysui.ui.screen.blit(go_label, go_label.get_rect(center=(go_btn_x + go_btn_width // 2, go_btn_y + go_btn_height // 2)))
+        pygame.draw.rect(self.screen, (0, 128, 255), (go_btn_x, go_btn_y, go_btn_width, go_btn_height))
+        go_label = self.font.render("Go Against", True, (255, 255, 255))
+        self.screen.blit(go_label, go_label.get_rect(center=(go_btn_x + go_btn_width // 2, go_btn_y + go_btn_height // 2)))
 
 
 

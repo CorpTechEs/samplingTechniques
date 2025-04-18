@@ -1,7 +1,7 @@
 import pygame
 from controller import Controller
 from populationController import PopulationController
-# from sampleController import SampleController
+from sampleController import SampleController
 # from sampleTController import SampleTechniqueController
 # from jarController import CollectionJarController
 
@@ -10,7 +10,7 @@ controller = Controller(20)
 PopulationPanel = PopulationController(population_size=20)
 PopulationPanel.create_population()
 
-# SamplePanel = SampleController(sample_size=5)
+SamplePanel = SampleController(sample_size=5)
 # SampleTechnique = SampleTechniqueController()
 # jars = CollectionJarController()
 
@@ -22,7 +22,7 @@ while True:
             exit()
 
     PopulationPanel.draw_pop()
-    # SamplePanel.draw_samp()
+    SamplePanel.draw_samp()
     # SampleTechnique.draw_btn()
     # jars.draw_jar()
 
