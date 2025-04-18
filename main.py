@@ -12,6 +12,8 @@ PopulationPanel.create_population()
 
 SamplePanel = SampleController(sample_size=5)
 SampleTechnique = SampleTechniqueController()
+SampleTechnique.model.set_population(PopulationPanel.population)
+SampleTechnique.model.set_sample_size(SamplePanel.sample_size)
 Jars = CollectionJarController()
 
 while True:
@@ -29,16 +31,30 @@ while True:
     Jars.draw_jar()
 
     if SampleTechnique.model.locked:
+        controller.trigger_spin()
         controller.update()
+        controller.check_spokes_for_collision()
+        
+        # did we finish a spin?
+        spoke_idx = controller.check_for_spin_end() 
+        print(f"spoke_idx: {spoke_idx}")
+        if spoke_idx is not None:
+            done = SampleTechnique.model.record_spin(int(spoke_idx.data.replace("Segment ", "")))
+            if done:
+                sample = SampleTechnique.model.get_sample()
+                SamplePanel.set_sample(sample)
+                SamplePanel.draw_samp()
+                spoke_idx = None
     else:
         print("Select a sampling technique first!")
+    
+    controller.render_frame()
 
     # Rotate and draw the circle
     # controller.rotate_and_draw_circle()
     # Display debug info
 
-    controller.check_spokes_for_collision()
-    controller.render_frame()
+
     
     pygame.display.flip()
     controller.model.clock.tick(60)

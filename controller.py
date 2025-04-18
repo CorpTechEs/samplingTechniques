@@ -100,6 +100,7 @@ class Controller:
         self.model = Model()
         self.view = WheelView()  # instantiate the specialized wheel view
         self.num_spokes = num_spokes
+        self.spin_in_progress = False
 
         # Calculate center once
         self.center = (self.view.width // 2, self.view.height // 2)
@@ -119,7 +120,7 @@ class Controller:
             # Apply a one-time torque when space is pressed
             self.model.apply_torque = True
             if self.model.apply_torque:
-                self.model.force_applied = 0.5
+                self.model.force_applied = 0.3
                 self.model.torque = self.model.force_applied * self.view.radius
                 self.model.apply_torque = False
 
@@ -169,3 +170,21 @@ class Controller:
         elements = self.view.get_elements(self.model.angular_velocity, self.last_spoke_hit)
         for label, pos in elements:
             self.view.screen.blit(label, pos)
+        
+    
+    def trigger_spin(self):
+        """"Call when user presses the space bar."""
+        if not self.spin_in_progress:
+            self.spin_in_progress = True
+
+    def check_for_spin_end(self):
+        """" Call after update and after collision check.
+        Returns the index of the
+        """
+        print(f"check_for_spin_end outside: {self.spin_in_progress, self.last_spoke_hit}")
+        if self.spin_in_progress and self.last_spoke_hit:
+            print("check_for_spin_end")
+            self.spin_in_progress = False
+            if self.last_spoke_hit:
+                return self.last_spoke_hit
+        return None  # No spoke hit

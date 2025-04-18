@@ -45,3 +45,12 @@ class SampleTechniqueController:
         """
         self.view.draw_btn()
 
+    def record_spin(self, spoke_number):
+        """
+        Record the spin result.
+        """
+        return self.model.record_spin(spoke_number)
+    
+    def get_sample(self):
+        return self.model.get_sample()
+
