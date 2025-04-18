@@ -1,7 +1,5 @@
 # Model | Data Processing
 import pygame
-import math
-import random
 from population import PopulationModel
 from leftpanel import LeftPanel
 
@@ -19,11 +17,10 @@ class PopulationController:
         self.PopulationPanel.draw()
         # Mock shapes for population going to model or controller
         for i in self.population:
-            font = self.PopulationPanel.sysui.ui.font   # Reuse the existing UI font
+            font = self.PopulationPanel.font   # Reuse the existing UI font
             symbol_surface = font.render(i['shape'], True, i['color'])  # Black color text
             symbol_rect = symbol_surface.get_rect(center=(
-                self.PopulationPanel.sysui.panel_padding + 30,
-                self.PopulationPanel.sysui.panel_top + 30 + i['id'] + 1 * 60
+                self.PopulationPanel.panel_padding + 30,
+                self.PopulationPanel.panel_top + 30 + i['id'] + 1 * 60
             ))
-            self.PopulationPanel.sysui.ui.screen.blit(symbol_surface, symbol_rect)
-        pygame.display.update()
+            self.PopulationPanel.screen.blit(symbol_surface, symbol_rect)

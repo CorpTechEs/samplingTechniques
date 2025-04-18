@@ -1,14 +1,14 @@
 import pygame
 from controller import Controller
 from populationController import PopulationController
-from sampleController import SampleController
-from sampleTController import SampleTechniqueController
-from jarController import CollectionJarController
+# from sampleController import SampleController
+# from sampleTController import SampleTechniqueController
+# from jarController import CollectionJarController
 
 pygame.init()
 controller = Controller(10)
-# PopulationPanel = PopulationController(population_size=10)
-# PopulationPanel.create_population()
+PopulationPanel = PopulationController(population_size=10)
+PopulationPanel.create_population()
 
 # SamplePanel = SampleController(sample_size=5)
 # SampleTechnique = SampleTechniqueController()
@@ -21,11 +21,11 @@ while True:
             pygame.quit()
             exit()
 
-    # PopulationPanel.draw_pop()
+    PopulationPanel.draw_pop()
     # SamplePanel.draw_samp()
     # SampleTechnique.draw_btn()
     # jars.draw_jar()
-    # draw_ui()
+
     controller.update()
 
     # Rotate and draw the circle
