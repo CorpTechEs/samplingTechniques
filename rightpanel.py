@@ -4,6 +4,7 @@ from sysui import PanelUI
 class RightPanel(PanelUI):
     def __init__(self):
         super().__init__()
+        self.right_rect = None
 
     def draw(self):
         self.right_rect = pygame.Rect(self.width - self.panel_padding - self.panel_width, self.panel_top, self.panel_width, self.panel_height)
@@ -23,17 +24,17 @@ class RightPanel(PanelUI):
 
 
 
-            # def draw_samples(self, screen, user_sample, system_sample):
-            #     # Draw user sample (red)
-            #     for i, _ in enumerate(user_sample):
-            #         rect = pygame.Rect(self.user_x, self.y + i * (self.box_size + self.gap), self.box_size, self.box_size)
-            #         pygame.draw.rect(screen, (255, 102, 102), rect)
-
-            #     # Draw system sample (blue)
-            #     for i, _ in enumerate(system_sample):
-            #         rect = pygame.Rect(self.system_x, self.y + i * (self.box_size + self.gap), self.box_size, self.box_size)
-            #         pygame.draw.rect(screen, (102, 178, 255), rect)
-
-            # def draw_result(self, screen, result_text):
-            #     text_surface = self.font.render(result_text, True, (0, 0, 0))
-            #     screen.blit(text_surface, (400, 400))
+    def draw_samples(self, user_sample, system_sample=[]):
+        # Draw user sample (red)
+        for i, _ in enumerate(user_sample):
+            rect = pygame.Rect(self.user_x, self.y + i * (self.box_size + self.gap), self.box_size, self.box_size)
+            pygame.draw.rect(self.screen, (255, 102, 102), rect)
+        
+        # Draw system sample (blue)
+        for i, _ in enumerate(system_sample):
+            rect = pygame.Rect(self.system_x, self.y + i * (self.box_size + self.gap), self.box_size, self.box_size)
+            pygame.draw.rect(self.screen, (102, 178, 255), rect)
+    
+    def draw_result(self, result_text):
+        text_surface = self.font.render(result_text, True, (0, 0, 0))
+        self.screen.blit(text_surface, (400, 400))

@@ -1,7 +1,6 @@
 # Model | Data Processing
 import pygame
-import math
-import random
+import pygame.freetype
 from sample import SampleModel
 from rightpanel import RightPanel
 
@@ -16,21 +15,34 @@ class SampleController:
         self.population = []
 
     def draw_samp(self):
-        self.SamplePanel.draw()
-        
         # Mock shapes for population going to model or controller
         if len(self.sample) > 0:
-            for i in self.sample:
-                font = self.SamplePanel.font   # Reuse the existing UI font
-                symbol_surface = font.render(i['shape'], True, i['color'])  # Black color text
-                symbol_rect = symbol_surface.get_rect(center=(
-                    self.SamplePanel.panel_padding + 30,
-                    self.SamplePanel.panel_top + 30 + i['id'] + 1 * 60
-                ))
-                self.SamplePanel.screen.blit(symbol_surface, symbol_rect)
+            # … after drawing right_rect and sample_label …
+
+            # 1) Prepare a proper emoji font
+            icon_font = pygame.freetype.SysFont("Segoe UI Emoji",
+                                                self.SamplePanel.ICON_FONT_SIZE)
+
+            # 2) Compute padding relative to the existing panel
+            PADDING_X = self.SamplePanel.panel_padding + 20
+            PADDING_Y = self.SamplePanel.panel_padding + 20
+
+            # 3) Blit each sampled item inside that panel
+            for idx, item in enumerate(self.sample):
+                print(f"{idx}: {item}")
+                # freetype.render → (Surface, Rect)
+                symbol_surf, _ = icon_font.render(item['shape'], item['color'])
+
+                # Position vertically spaced
+                x = PADDING_X + 20
+                y = PADDING_Y + idx * self.SamplePanel.VERTICAL_SPACING + 20
+
+                symbol_rect = symbol_surf.get_rect(topleft=(x, y))
+                self.SamplePanel.screen.blit(symbol_surf, symbol_rect)
 
     def set_sample(self, sample):
         self.Sample.add_user_sample(sample)
+        self.sample = sample
     
     def record_user_spin(self, selected_value):
         if self.spins_done < self.expected_sample_size:

@@ -10,7 +10,7 @@ class SampleModel:
         self.population = population
 
     def add_user_sample(self, member):
-        self.user_sample.append(member)
+        self.user_sample = member
 
     def clear_samples(self):
         self.user_sample = []

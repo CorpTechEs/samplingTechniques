@@ -26,18 +26,16 @@ while True:
         SampleTechnique.handle_event(event)
 
     PopulationPanel.draw_pop()
-    SamplePanel.draw_samp()
+    SamplePanel.SamplePanel.draw()
     SampleTechnique.draw()
     Jars.draw_jar()
 
     if SampleTechnique.model.locked:
-        controller.trigger_spin()
         controller.update()
-        controller.check_spokes_for_collision()
+        controller.trigger_spin()
         
         # did we finish a spin?
         spoke_idx = controller.check_for_spin_end() 
-        print(f"spoke_idx: {spoke_idx}")
         if spoke_idx is not None:
             done = SampleTechnique.model.record_spin(int(spoke_idx.data.replace("Segment ", "")))
             if done:
@@ -45,16 +43,13 @@ while True:
                 SamplePanel.set_sample(sample)
                 SamplePanel.draw_samp()
                 spoke_idx = None
-    else:
-        print("Select a sampling technique first!")
+                done = None
+                SampleTechnique.model.locked = False
+    # else:
+    #     print("Select a sampling technique first!")
     
+    controller.check_spokes_for_collision()
     controller.render_frame()
-
-    # Rotate and draw the circle
-    # controller.rotate_and_draw_circle()
-    # Display debug info
-
-
     
     pygame.display.flip()
     controller.model.clock.tick(60)

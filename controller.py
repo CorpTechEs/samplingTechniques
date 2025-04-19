@@ -174,16 +174,15 @@ class Controller:
     
     def trigger_spin(self):
         """"Call when user presses the space bar."""
-        if not self.spin_in_progress:
+        if not self.spin_in_progress and self.model.angular_velocity > 0:
             self.spin_in_progress = True
 
     def check_for_spin_end(self):
         """" Call after update and after collision check.
         Returns the index of the
         """
-        print(f"check_for_spin_end outside: {self.spin_in_progress, self.last_spoke_hit}")
-        if self.spin_in_progress and self.last_spoke_hit:
-            print("check_for_spin_end")
+
+        if self.spin_in_progress and self.model.angular_velocity == 0:
             self.spin_in_progress = False
             if self.last_spoke_hit:
                 return self.last_spoke_hit
