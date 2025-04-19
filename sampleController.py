@@ -17,38 +17,32 @@ class SampleController:
     def draw_samp(self):
         # Mock shapes for population going to model or controller
         if len(self.sample) > 0:
-            samp_x = self.SamplePanel.width - self.SamplePanel.panel_width - self.SamplePanel.panel_padding
-            panel_y = 180
-            for idx, item in enumerate(self.sample):
-                pygame.draw.rect(self.SamplePanel.screen, (255, 100, 100), (samp_x + 30, panel_y + 30 + idx * 60, 30, 30))
-
-
-
-
-
-
-            # # … after drawing right_rect and sample_label …
-
-            # # 1) Prepare a proper emoji font
-            # icon_font = pygame.freetype.SysFont("Segoe UI Emoji",
-            #                                     self.SamplePanel.ICON_FONT_SIZE)
-
-            # # 2) Compute padding relative to the existing panel
-            # PADDING_X = self.SamplePanel.panel_padding + 20
-            # PADDING_Y = self.SamplePanel.panel_padding + 20
-
-            # # 3) Blit each sampled item inside that panel
+            # samp_x = self.SamplePanel.width - self.SamplePanel.panel_width - self.SamplePanel.panel_padding
+            # panel_y = 180
             # for idx, item in enumerate(self.sample):
-            #     print(f"{idx}: {item}")
-            #     # freetype.render → (Surface, Rect)
-            #     symbol_surf, _ = icon_font.render(item['shape'], item['color'])
+            #     pygame.draw.rect(self.SamplePanel.screen, (255, 100, 100), (samp_x + 30, panel_y + 30 + idx * 60, 30, 30))
 
-            #     # Position vertically spaced
-            #     x = PADDING_X + 20
-            #     y = PADDING_Y + idx * self.SamplePanel.VERTICAL_SPACING + 20
+            # … after drawing right_rect and sample_label …
 
-            #     symbol_rect = symbol_surf.get_rect(topleft=(x, y))
-            #     self.SamplePanel.screen.blit(symbol_surf, symbol_rect)
+            # 1) Prepare a proper emoji font
+            icon_font = pygame.freetype.SysFont("Segoe UI Emoji",
+                                                self.SamplePanel.ICON_FONT_SIZE)
+
+            samp_x   = self.SamplePanel.width  - self.SamplePanel.panel_width - self.SamplePanel.panel_padding
+            panel_y  = 180
+
+            for idx, item in enumerate(self.sample):
+                # render → (Surface, Rect)
+                symbol_surf, _ = icon_font.render(item['shape'], item['color'])
+
+                # position using your supplied offsets + consistent spacing
+                x = samp_x + 30
+                y = panel_y + 30 + idx * 60
+
+                # get_rect on the surface—use topleft so it hugs your grid
+                symbol_rect = symbol_surf.get_rect(topleft=(x, y))
+
+                self.SamplePanel.screen.blit(symbol_surf, symbol_rect)
 
     def set_sample(self, sample):
         self.Sample.add_user_sample(sample)
