@@ -6,7 +6,7 @@ from rightpanel import RightPanel
 
 class SampleController:
     def __init__(self, sample_size):
-        self.Sample = SampleModel(sample_size)
+        self.Sample = SampleModel()
         self.SamplePanel = RightPanel()
         self.sample_size = sample_size
         self.sample = []
@@ -69,3 +69,31 @@ class SampleController:
         self.spins_done = 0
         self.ready_to_compare = False
         self.Sample.clear_samples()
+
+    def handle_event(self, event):
+        # 1) Pass to the view to catch go‑click
+        self.SamplePanel.handle_event(event)
+
+        # 2) If Go‑Against was clicked, do the compare
+        if not self.SamplePanel.go_btn_clickable:
+            # self.SamplePanel.go_btn_clickable = False
+            self._run_go_sequence()
+
+    def _run_go_sequence(self):
+        # Ensure user sample is complete
+        user_sample = self.sample
+        if len(user_sample) < self.sample_size:
+            print("Finish your sample first!")
+            return
+
+        # 1) Machine draws its sample
+        machine_sample = self.Sample.generate_system_sample(self.sample_size)
+
+        # 2) Compare
+        winner, u_score, m_score = self.Sample.compare_samples()
+        # 3) Display on screen
+        self.SamplePanel.draw_result(f"{winner} wins ({u_score} vs {m_score})")
+        print(f"{winner} wins ({u_score} vs {m_score})")
+        # 4) Reset all MVC pieces after a short delay (or immediately)
+        self.reset_sampling()
+        # self.panel.reset_buttons()   # also resets result_text if you like

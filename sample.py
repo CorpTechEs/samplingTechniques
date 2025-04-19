@@ -1,10 +1,10 @@
 import random
 
 class SampleModel:
-    def __init__(self, population):
+    def __init__(self):
         self.user_sample = []
         self.system_sample = []
-        self.population = population
+        self.population = []
 
     def set_population(self, population):
         self.population = population
@@ -25,12 +25,12 @@ class SampleModel:
 
     def compare_samples(self):
         # You can define your comparison logic here; for now, we'll use length or dummy scoring
-        score_user = sum(self.user_sample)
-        score_system = sum(self.system_sample)
+        user_score    = sum(member['point'] for member in self.user_sample)
+        machine_score = sum(member['point'] for member in self.system_sample)
 
-        if score_user > score_system:
-            return "User Wins", score_user, score_system
-        elif score_system > score_user:
-            return "System Wins", score_user, score_system
+        if user_score > machine_score:
+            return "User Wins", user_score, machine_score
+        elif machine_score > user_score:
+            return "System Wins", user_score, machine_score
         else:
-            return "Draw", score_user, score_system
+            return "Draw", user_score, machine_score

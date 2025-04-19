@@ -9,6 +9,7 @@ class PopulationModel:
         self.colors = [(255, 20, 147), (0, 191, 255), (152, 255, 152),(255, 165, 0), (255, 255, 102), (0, 0, 0), (255, 255, 255), (148, 0, 211)]
         self.shades = ['light', 'dark']
         self.sizes = ['small', 'medium']
+        self.points = [1, 2, 3, 4, 5]
         self.population = self.generate_population()
         self.clusters = []
 
@@ -17,6 +18,7 @@ class PopulationModel:
         colors = self.colors
         shades = self.shades
         sizes = self.sizes
+        points = self.points
         population = []
 
         for i in range(self.size):
@@ -25,7 +27,8 @@ class PopulationModel:
                 'shape': random.choice(shapes),
                 'color': random.choice(colors),
                 'size': random.choice(sizes),
-                'shade': random.choice(shades)
+                'shade': random.choice(shades),
+                'point': random.choice(points)
           })
         return population
 

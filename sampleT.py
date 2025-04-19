@@ -52,7 +52,6 @@ class SampleTechniqueModel:
         if len(self.sample_list) < self.sample_size:
             # Append to the sample list
             self.sample_list.append(member_id)
-            print(len(self.sample_list))
             # Check if we've reached the desired sample size
         return True if len(self.sample_list) == self.sample_size else False
     
