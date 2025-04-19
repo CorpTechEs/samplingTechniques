@@ -41,12 +41,14 @@ while True:
             if done:
                 sample = SampleTechnique.model.get_sample()
                 SamplePanel.set_sample(sample)
-                SamplePanel.draw_samp()
+                SamplePanel.ready_to_compare = True
                 spoke_idx = None
                 done = None
                 SampleTechnique.model.locked = False
     # else:
     #     print("Select a sampling technique first!")
+    if len(SamplePanel.sample) == 5 and SamplePanel.ready_to_compare:
+        SamplePanel.draw_samp()
     
     controller.check_spokes_for_collision()
     controller.render_frame()
