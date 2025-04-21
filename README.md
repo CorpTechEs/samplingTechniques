@@ -62,7 +62,16 @@ After each match, the system resets everything for the next round.
 This system is built to help students and educators **understand sampling concepts** through interaction, visual feedback, and competition, making abstract statistical methods more concrete and memorable.
 
 ---
+---
 
+### 8. ✅ Installation
+
+```bash
+git clone https://github.com/yourusername/sampling-simulation.git
+cd sampling-simulation
+pip install -r requirements.txt
+python main.py
+---
 ## 🧠 Sample Data Structure
 
 Each population member is a dictionary with:
@@ -76,13 +85,3 @@ Each population member is a dictionary with:
   'shade': 'dark',
   'point': 5
 }
-
----
-
-## ✅ Installation
-
-```bash
-git clone https://github.com/yourusername/sampling-simulation.git
-cd sampling-simulation
-pip install -r requirements.txt
-python main.py
