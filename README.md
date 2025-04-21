@@ -56,7 +56,7 @@ Each population member is a dictionary with:
   'point': 5
 }
 
-## 🛠 Tech Stack
+**### 5. **🛠 Tech Stack**
 
 - **Python 3.x**
 - **Pygame**
@@ -64,7 +64,7 @@ Each population member is a dictionary with:
 
 ---
 
-## 🚀 Future Ideas
+**### 6. 🚀 **Future Ideas**
 
 - Scoring history tracking
 - Exportable sample reports
@@ -73,7 +73,7 @@ Each population member is a dictionary with:
 
 ---
 
-## 👩‍🏫 Educational Objective
+**### 7. 👩‍🏫 **Educational Objective**
 
 This system is built to help students and educators **understand sampling concepts** through interaction, visual feedback, and competition, making abstract statistical methods more concrete and memorable.
 
