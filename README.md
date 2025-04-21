@@ -42,6 +42,27 @@ After each match, the system resets everything for the next round.
 
 ---
 
+**### 5. **🛠 Tech Stack**
+
+- Python 3.x
+- Pygame
+- MVC Design Pattern
+---
+**### 6. 🚀 **Future Ideas**
+
+- Scoring history tracking
+- Exportable sample reports
+- Custom population generation
+- Multiplayer or class-based usage in EdTech settings
+
+---
+
+**### 7. 👩‍🏫 **Educational Objective**
+
+This system is built to help students and educators **understand sampling concepts** through interaction, visual feedback, and competition, making abstract statistical methods more concrete and memorable.
+
+---
+
 ## 🧠 Sample Data Structure
 
 Each population member is a dictionary with:
@@ -55,27 +76,6 @@ Each population member is a dictionary with:
   'shade': 'dark',
   'point': 5
 }
-
-**### 5. **🛠 Tech Stack**
-
-- **Python 3.x**
-- **Pygame**
-- **MVC Design Pattern**
-
----
-
-**### 6. 🚀 **Future Ideas**
-
-- Scoring history tracking
-- Exportable sample reports
-- Custom population generation
-- Multiplayer or class-based usage in EdTech settings
-
----
-
-**### 7. 👩‍🏫 **Educational Objective**
-
-This system is built to help students and educators **understand sampling concepts** through interaction, visual feedback, and competition, making abstract statistical methods more concrete and memorable.
 
 ---
 
