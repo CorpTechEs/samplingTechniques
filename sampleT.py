@@ -6,6 +6,7 @@ class SampleTechniqueModel:
         self.population = []
         self.sample_size = 0
         self.sample_list = []
+        self.sample_interval = None
 
     def select_technique(self, technique):
         if not self.locked and technique in self.techniques:
@@ -42,6 +43,7 @@ class SampleTechniqueModel:
 
         if self.selected_technique != "SRS":
             return False
+        
         # Map spoke_number to population ID (assumes 1-to-1 mapping)
         try:
             member_id = self.population[spoke_number - 1]
@@ -59,6 +61,12 @@ class SampleTechniqueModel:
         """Return the current sample."""
         return self.sample_list
     
+    def select_nth_term(self, n):
+        """
+        Selects every nth term from the population, skipping index 0.
+        """
+        self.system_sample = [self.population[i] for i in range(1, len(self.population)) if (i + 1) % n == 0]
+        return self.system_sample
 
 
     

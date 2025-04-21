@@ -80,17 +80,15 @@ class SampleController:
             self._run_go_sequence(pop)
     
     def draw_winner(self):
-        if self.SamplePanel.pos and self.SamplePanel.label:
-            print("99")
-            self.font.render(self.SamplePanel.label, True, (0, 0, 0))
-            self.screen.blit(self.SamplePanel.label, self.SamplePanel.pos)
+            self.SamplePanel.font.render(self.SamplePanel.label, True, (0, 0, 0))
+            self.SamplePanel.screen.blit(self.SamplePanel.label, self.SamplePanel.pos)
 
     def _run_go_sequence(self, pop): 
         # Ensure user sample is complete
         user_sample = self.sample
-        if len(user_sample) < self.sample_size:
-            print("Finish your sample first!")
-            return
+        # if len(user_sample) < self.sample_size:
+        #     print("Finish your sample first!")
+        #     return
 
         # # 1) Machine draws its sample
         self.Sample.generate_system_sample(self.sample_size, pop)

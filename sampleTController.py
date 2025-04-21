@@ -24,10 +24,10 @@ class SampleTechniqueController:
             return
 
         btn = self.view.handle_event(event)
-
         if btn is not None:
             self.model.select_technique(btn[0])
             self.lock_selection()
+            return btn
     
 
     def lock_selection(self):
