@@ -49,7 +49,9 @@ while True:
     #     print("Select a sampling technique first!")
     if len(SamplePanel.sample) == 5 and SamplePanel.ready_to_compare:
         SamplePanel.draw_samp()
-        SamplePanel.handle_event(event)
+        SamplePanel.handle_event(event, PopulationPanel.population)
+    
+    SamplePanel.draw_winner()
     
     controller.check_spokes_for_collision()
     controller.render_frame()

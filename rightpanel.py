@@ -7,6 +7,7 @@ class RightPanel(PanelUI):
         self.right_rect = None
         self.go_btn_clickable = True
         self.result_text  = None
+        self.label, self.pos = None, None
 
     def draw(self):
         self.right_rect = pygame.Rect(self.width - self.panel_padding - self.panel_width, self.panel_top, self.panel_width, self.panel_height)
@@ -32,7 +33,6 @@ class RightPanel(PanelUI):
             if self.go_btn_clickable:
                 if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                     if self.right_rect and self.right_rect.collidepoint(event.pos):
-                        print("Go Against clicked")
                         self.go_btn_clickable = False  # Disable the button after click
                         # you can also set a flag here, e.g.:
                         # self.go_clicked = True
@@ -51,12 +51,4 @@ class RightPanel(PanelUI):
     
     def draw_result(self, result_text):
         if result_text:
-            txt_surf = self.font.render(result_text, True, (0, 0, 0))
-
-            self.screen.blit(
-                txt_surf,
-                txt_surf.get_rect(center=(
-                    self.right_rect.centerx,
-                    self.right_rect.bottom + 30
-                ))
-            )
+            label, pos = self.create_text_label(result_text, (10,20))

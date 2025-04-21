@@ -70,24 +70,30 @@ class SampleController:
         self.ready_to_compare = False
         self.Sample.clear_samples()
 
-    def handle_event(self, event):
+    def handle_event(self, event, pop):
         # 1) Pass to the view to catch go‑click
         self.SamplePanel.handle_event(event)
 
         # 2) If Go‑Against was clicked, do the compare
         if not self.SamplePanel.go_btn_clickable:
             # self.SamplePanel.go_btn_clickable = False
-            self._run_go_sequence()
+            self._run_go_sequence(pop)
+    
+    def draw_winner(self):
+        if self.SamplePanel.pos and self.SamplePanel.label:
+            print("99")
+            self.font.render(self.SamplePanel.label, True, (0, 0, 0))
+            self.screen.blit(self.SamplePanel.label, self.SamplePanel.pos)
 
-    def _run_go_sequence(self):
+    def _run_go_sequence(self, pop): 
         # Ensure user sample is complete
         user_sample = self.sample
         if len(user_sample) < self.sample_size:
             print("Finish your sample first!")
             return
 
-        # 1) Machine draws its sample
-        machine_sample = self.Sample.generate_system_sample(self.sample_size)
+        # # 1) Machine draws its sample
+        self.Sample.generate_system_sample(self.sample_size, pop)
 
         # 2) Compare
         winner, u_score, m_score = self.Sample.compare_samples()
