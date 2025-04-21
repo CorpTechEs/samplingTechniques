@@ -1,3 +1,4 @@
+import random
 class SampleTechniqueModel:
     def __init__(self):
         self.techniques = ["SRS", "SYS", "STRATIFIED", "CLUSTER"]
@@ -40,9 +41,6 @@ class SampleTechniqueModel:
     #     True if sampling is complete (sample_list length == sample_size), else False.
 
     # Only record if SRS is the chosen technique
-
-        if self.selected_technique != "SRS":
-            return False
         
         # Map spoke_number to population ID (assumes 1-to-1 mapping)
         try:
@@ -68,5 +66,22 @@ class SampleTechniqueModel:
         self.system_sample = [self.population[i] for i in range(1, len(self.population)) if (i + 1) % n == 0]
         return self.system_sample
 
+    def strat(self, strata_lists):
+        """
+        For stratified sampling:
+        - Compute group index: idx = num % len(strata_lists)
+        - strata_lists is a list of lists, one per stratum
+        - Return a random member from the selected stratum
+        """
+        strata_list = list(strata_lists.items())
 
+        if not isinstance(strata_list, list) or not strata_list:
+            print("[ERROR] strata_lists must be a non-empty list of lists.")
+            return False
+
+        if len(self.sample_list) < self.sample_size:
+            member = random.choice(strata_list)
+            self.sample_list.append(self.population[member[1][0]['id']])
+
+        return len(self.sample_list) == self.sample_size
     

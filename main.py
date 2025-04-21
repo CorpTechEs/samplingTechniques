@@ -29,7 +29,6 @@ while True:
     PopulationPanel.draw_pop()
     SamplePanel.SamplePanel.draw()
     SampleTechnique.draw()
-    Jars.draw_jar()
 
     if SampleTechnique.model.locked:
         controller.update()
@@ -56,6 +55,40 @@ while True:
                 SamplePanel.set_sample(sample)
                 SamplePanel.ready_to_compare = True
                 spoke_idx = None
+        elif SampleTechnique.model.selected_technique == 'STRATIFIED':
+            Jars.draw_jar()
+            bias = "color" # find a way to allow he user to input the bias
+            shape   = PopulationPanel.Population.group_by('shape')  # these elements need to appear in the respective jar
+            color   = PopulationPanel.Population.group_by('color')  # these elements need to appear in the respective jar
+            size    = PopulationPanel.Population.group_by('size')   # these elements need to appear in the respective jar
+            shade   = PopulationPanel.Population.group_by('shade')  # these elements need to appear in the respective jar
+
+            # did we finish a spin?
+            spoke_idx = controller.check_for_spin_end()
+            if spoke_idx is not None:
+                mod_result = int(spoke_idx.data.replace("Segment ", "")) % 4
+
+                if  mod_result == 0:
+                    done = SampleTechnique.model.strat(shape)
+                if mod_result == 1:
+                    done = SampleTechnique.model.strat(shape)
+                if mod_result == 2:
+                    done = SampleTechnique.model.strat(shape)
+                if mod_result == 3:
+                    done = SampleTechnique.model.strat(shape)
+                
+                print(f"done: {done}")
+                
+                if done:
+                    sample = SampleTechnique.model.get_sample()
+                    SamplePanel.set_sample(sample)
+                    SamplePanel.ready_to_compare = True
+                    spoke_idx = None
+                    done = None
+                    SampleTechnique.model.locked = False
+
+        elif SampleTechnique.model.selected_technique == 'CLUSTER':
+            Jars.draw_jar()
 
     # else:
     #     print("Select a sampling technique first!")
