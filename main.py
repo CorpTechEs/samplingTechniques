@@ -77,8 +77,6 @@ while True:
                 if mod_result == 3:
                     done = SampleTechnique.model.strat(shape)
                 
-                print(f"done: {done}")
-                
                 if done:
                     sample = SampleTechnique.model.get_sample()
                     SamplePanel.set_sample(sample)
@@ -89,6 +87,21 @@ while True:
 
         elif SampleTechnique.model.selected_technique == 'CLUSTER':
             Jars.draw_jar()
+
+            # did we finish a spin?
+            spoke_idx = controller.check_for_spin_end()
+
+            if spoke_idx is not None:
+                result = int(spoke_idx.data.replace("Segment ", ""))
+                done = SampleTechnique.model.record_spin_cluster(result, 4)
+                print(done)
+                if done:
+                    sample = SampleTechnique.model.get_sample()
+                    SamplePanel.set_sample(sample)
+                    SamplePanel.ready_to_compare = True
+                    spoke_idx = None
+                    done = None
+                    SampleTechnique.model.locked = False
 
     # else:
     #     print("Select a sampling technique first!")

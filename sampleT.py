@@ -8,6 +8,8 @@ class SampleTechniqueModel:
         self.sample_size = 0
         self.sample_list = []
         self.sample_interval = None
+        self.clusters = None
+        self.current_cluster = None
 
     def select_technique(self, technique):
         if not self.locked and technique in self.techniques:
@@ -84,4 +86,63 @@ class SampleTechniqueModel:
             self.sample_list.append(self.population[member[1][0]['id']])
 
         return len(self.sample_list) == self.sample_size
+    def strat(self, strata_lists):
+        """
+        For stratified sampling:
+        - Compute group index: idx = num % len(strata_lists)
+        - strata_lists is a list of lists, one per stratum
+        - Return a random member from the selected stratum
+        """
+        strata_list = list(strata_lists.items())
+
+        if not isinstance(strata_list, list) or not strata_list:
+            print("[ERROR] strata_lists must be a non-empty list of lists.")
+            return False
+
+        if len(self.sample_list) < self.sample_size:
+            member = random.choice(strata_list)
+            self.sample_list.append(self.population[member[1][0]['id']])
+
+        return len(self.sample_list) == self.sample_size
+
+    def generate_clusters(self, num_clusters):
+        """
+        Partition the population into num_clusters random clusters.
+        """
+        pop_len = len(self.population)
+        if num_clusters <= 0 or num_clusters > pop_len:
+            print(f"[ERROR] Cannot create {num_clusters} clusters from population size {pop_len}.")
+            self.clusters = []
+            return
+        # Shuffle copy of population
+        pop_copy = self.population[:]
+        random.shuffle(pop_copy)
+        # Evenly distribute into clusters
+        self.clusters = [[] for _ in range(num_clusters)]
+        for idx, member in enumerate(pop_copy):
+            self.clusters[idx % num_clusters].append(member)
+        self.current_cluster = None
     
+    def record_spin_cluster(self, spoke_number, num_clusters):
+        """
+        For cluster sampling:
+        - First spin selects which cluster to use
+        - Subsequent spins pull from that cluster by index
+        Returns True when sample_list reaches sample_size
+        """
+        # Ensure clusters exist
+        if not self.clusters:
+            self.generate_clusters(num_clusters)
+            return False
+        # First spin: select cluster
+        if self.current_cluster is None:
+            cluster_idx = spoke_number % len(self.clusters)
+            self.current_cluster = self.clusters[cluster_idx]
+            return False
+        # Subsequent spins: sample from current cluster
+        if len(self.sample_list) >= self.sample_size:
+            return True
+        # Map spoke_number into current_cluster index
+        member = self.current_cluster[spoke_number % len(self.current_cluster)]
+        self.sample_list.append(member)
+        return len(self.sample_list) >= self.sample_size
