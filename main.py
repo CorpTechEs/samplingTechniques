@@ -104,13 +104,12 @@ while True:
                     SampleTechnique.model.locked = False
 
     # else:
-    #     print("Select a sampling technique first!")
+    #  print("Select a sampling technique first!")
     if SamplePanel.ready_to_compare:
         SamplePanel.draw_samp()
         SamplePanel.handle_event(event, PopulationPanel.population)
     
     # SamplePanel.draw_winner()
-    
     controller.check_spokes_for_collision()
     controller.render_frame()
     
