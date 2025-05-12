@@ -18,8 +18,6 @@ Jars = CollectionJarController()
 SampleMode = None
 
 while True:
-    controller.view.screen.fill((255, 255, 255))  # Black background
-
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()

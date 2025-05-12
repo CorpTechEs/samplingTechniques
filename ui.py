@@ -50,11 +50,12 @@ import pygame
 from abc import ABC, abstractmethod
 
 class UI(ABC):
-    def __init__(self, width=800, height=800):
+    def __init__(self, width=1050, height=780):
         self.width = width
         self.height = height
-        self.screen = pygame.display.set_mode((self.width, self.height))
+        self.screen = pygame.display.set_mode((width, height))
         self.font = pygame.font.Font(None, 20)
+        self.bg = self.load_image("./uiElement/sampling_bg.png", (width, height))
 
     def create_text_label(self, text, pos):
         label = self.font.render(text, True, (0, 0, 0))
