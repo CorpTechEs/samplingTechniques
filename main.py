@@ -24,6 +24,7 @@ while True:
             exit()
         SampleTechnique.handle_event(event)
 
+    controller.view.screen.blit(controller.view.bg, (0, 0))
     PopulationPanel.draw_pop()
     SamplePanel.SamplePanel.draw()
     SampleTechnique.draw()
