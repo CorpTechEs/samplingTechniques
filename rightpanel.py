@@ -8,8 +8,12 @@ class RightPanel(PanelUI):
         self.go_btn_clickable = True
         self.result_text  = None
         self.label, self.pos = None, None
+        self.sample_panel = self.load_image("./uiElement/sample_panel.png")
 
     def draw(self):
+        # panels population and sample
+        self.screen.blit(self.sample_panel, (460, 200))
+
         self.right_rect = pygame.Rect(self.width - self.panel_padding - self.panel_width, self.panel_top, self.panel_width, self.panel_height)
         pygame.draw.rect(self.screen, (190, 190, 190), self.right_rect, 3)
         self.sample_label = self.font.render("Sample", True, (0, 0, 0))
