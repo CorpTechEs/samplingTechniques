@@ -4,7 +4,20 @@ from sysui import PanelUI
 class TechniqueButton(PanelUI):
     def __init__(self):
         super().__init__()
-        self.techniques = ["SRS", "SYS", "STRATIFIED", "CLUSTER"]
+        self.techniques = [ "SRS", "SYS", "STRATIFIED", "CLUSTER"]
+        
+        self.technique_s = [ self.load_image("./uiElement/srs_btn.png"), 
+                           self.load_image("./uiElement/sys_btn (2).png"), 
+                           self.load_image("./uiElement/strati_btn (2).png"), 
+                           self.load_image("./uiElement/cluster_btn.png")
+                        ]
+
+        self.technique_highlight = [ self.load_image("./uiElement/srs_btn (2).png"), 
+                           self.load_image("./uiElement/sys_btn.png"), 
+                           self.load_image("./uiElement/strati_btn.png"), 
+                           self.load_image("./uiElement/cluster_btn (2).png")
+                        ]
+        
         self.selected_index = None
         self.rects = []  # Store button rectangles for interaction
         self.draw_btn()
@@ -13,6 +26,7 @@ class TechniqueButton(PanelUI):
         """
         Draw all technique buttons and cache their rectangles.
         """
+        pixel = [(0, 75), (200, 75), (380, 75), (600, 75)] 
         self.rects.clear()
 
         for i, tech in enumerate(self.techniques):
@@ -31,6 +45,8 @@ class TechniqueButton(PanelUI):
             # Draw button
             pygame.draw.rect(self.screen, fill_color, rect)
             pygame.draw.rect(self.screen, border_color, rect, 2)
+
+            self.screen.blit(self.technique_s[i], pixel[i])           # draw btn
 
             # Draw label centered
             label = self.font.render(tech, True, (0, 0, 0))

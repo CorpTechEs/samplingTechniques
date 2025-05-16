@@ -12,6 +12,9 @@ class PanelUI(UI):
         self.center_y = self.height // 2 + 20
         self.ICON_FONT_SIZE = 20
         self.VERTICAL_SPACING = 25
+
+    def draw_btn(self, URL, position):
+        self.screen.blit(URL, position)
     
     def get_elements(self):
         """

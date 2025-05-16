@@ -9,6 +9,8 @@ class RightPanel(PanelUI):
         self.result_text  = None
         self.label, self.pos = None, None
         self.sample_panel = self.load_image("./uiElement/sample_panel.png")
+        self.btn_challenge = self.load_image("./uiElement/challenge_btn.png")
+        self.btn_challenge_2 = self.load_image("./uiElement/challenge_btn (2).png")
 
     def draw(self):
         # panels population and sample
@@ -21,6 +23,7 @@ class RightPanel(PanelUI):
         self.draw_btn()
 
     def draw_btn(self):
+        self.screen.blit(self.btn_challenge, (580, 670))
         # === GO AGAINST BUTTON (inside sample panel at bottom center) ===
         go_btn_width, go_btn_height = 100, 30
         go_btn_x = self.right_rect.centerx - go_btn_width // 2
