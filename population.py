@@ -3,9 +3,10 @@ from collections import defaultdict
 import random
 
 class PopulationModel:
-    def __init__(self, size):
+    def __init__(self, size, avators):
         self.size = size
         self.shapes = ['⚫','◾','⬜','⬛','◼️','◽','🟫','🟨','🟩','⏹️','🔺','🔻','🔽','🔼','◀️','▶️', '⚪', '🟤','🟣','⭕','⏺️','🔲','▪️','▫️','◻️']
+        self.avators = avators
         self.colors = [(255, 20, 147), (0, 191, 255), (152, 255, 152),(255, 165, 0), (255, 255, 102), (0, 0, 0), (255, 255, 255), (148, 0, 211)]
         self.shades = ['light', 'dark']
         self.sizes = ['small', 'medium']
@@ -13,18 +14,21 @@ class PopulationModel:
         self.population = self.generate_population()
         self.clusters = []
 
+
     def generate_population(self):
         shapes = self.shapes
         colors = self.colors
         shades = self.shades
         sizes = self.sizes
         points = self.points
+        avators = self.avators
         population = []
 
         for i in range(self.size):
           population.append({
                 'id': i,
                 'shape': random.choice(shapes),
+                'avators': random.choice(avators),
                 'color': random.choice(colors),
                 'size': random.choice(sizes),
                 'shade': random.choice(shades),

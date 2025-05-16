@@ -84,7 +84,7 @@ class WheelView(UI):
     def __init__(self, radius=100):
         super().__init__()
         self.radius = radius
-        self.pointer_rect = pygame.Rect((395, 290), (10, 20))
+        self.pointer_rect = pygame.Rect((395, 420), (10, 20))
         self.circle_surface = pygame.Surface((self.radius * 2, self.radius * 2), pygame.SRCALPHA)
         pygame.draw.circle(self.circle_surface, (255, 0, 0), (self.radius, self.radius), self.radius)
 
