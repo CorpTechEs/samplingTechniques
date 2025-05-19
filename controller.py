@@ -103,12 +103,12 @@ class Controller:
         self.spin_in_progress = False
 
         # Calculate center once
-        self.center = (self.view.width // 2, self.view.height // 2)
+        self.center = (400, 560)
 
         # Initialize spokes
         self.spokes = [Spoke(i, num_spokes, self.view.radius) for i in range(num_spokes)]
         # Pre-draw static wheel spokes onto the circle surface
-        self.view.draw_spokes(self.num_spokes, (self.view.radius, self.view.radius))
+        self.view.draw_spokes(self.num_spokes, list(self.center) )
 
         self.last_spoke_hit = None
         self.rect = None
