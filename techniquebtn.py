@@ -20,39 +20,19 @@ class TechniqueButton(PanelUI):
         
         self.selected_index = None
         self.rects = []  # Store button rectangles for interaction
+        self.positions = [(0, 75), (200, 75), (380, 75), (600, 75)]
         self.draw_btn()
 
     def draw_btn(self):
         """
         Draw all technique buttons and cache their rectangles.
         """
-        pixel = [(0, 75), (200, 75), (380, 75), (600, 75)] 
         self.rects.clear()
 
-        for i, tech in enumerate(self.techniques):
-            btn_x = 160 + i * 120
-            btn_y = 80
-            rect = pygame.Rect(btn_x, btn_y, 100, 30)
-
-            # Set colors based on selection state
-            if self.selected_index == i:
-                fill_color = (0, 200, 100)  # highlighted background
-                border_color = (0, 0, 0)
-            else:
-                fill_color = (255, 255, 255)
-                border_color = (0, 128, 255)
-
-            # Draw button
-            pygame.draw.rect(self.screen, fill_color, rect)
-            pygame.draw.rect(self.screen, border_color, rect, 2)
-
-            self.screen.blit(self.technique_s[i], pixel[i])           # draw btn
-
-            # Draw label centered
-            label = self.font.render(tech, True, (0, 0, 0))
-            self.screen.blit(label, label.get_rect(center=rect.center))
-
-            # Cache rect for click detection
+        for i, (x, y) in enumerate(self.positions):
+            image = self.technique_highlight[i] if self.selected_index == i else self.technique_s[i]
+            rect = image.get_rect(topleft=(x,y))
+            self.screen.blit(image, rect)
             self.rects.append(rect)
 
     def get_button_rects(self):
