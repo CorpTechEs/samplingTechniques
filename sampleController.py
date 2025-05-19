@@ -17,32 +17,19 @@ class SampleController:
     def draw_samp(self):
         # Mock shapes for population going to model or controller
         if len(self.sample) > 0:
-            # samp_x = self.SamplePanel.width - self.SamplePanel.panel_width - self.SamplePanel.panel_padding
-            # panel_y = 180
-            # for idx, item in enumerate(self.sample):
-            #     pygame.draw.rect(self.SamplePanel.screen, (255, 100, 100), (samp_x + 30, panel_y + 30 + idx * 60, 30, 30))
-
-            # … after drawing right_rect and sample_label …
-
-            # 1) Prepare a proper emoji font
-            icon_font = pygame.freetype.SysFont("Segoe UI Emoji",
-                                                self.SamplePanel.ICON_FONT_SIZE)
 
             samp_x   = self.SamplePanel.width  - self.SamplePanel.panel_width - self.SamplePanel.panel_padding
             panel_y  = 180
 
             for idx, item in enumerate(self.sample):
-                # render → (Surface, Rect)
-                symbol_surf, _ = icon_font.render(item['shape'], item['color'])
 
                 # position using your supplied offsets + consistent spacing
                 x = samp_x + 30
                 y = panel_y + 30 + idx * 60
 
-                # get_rect on the surface—use topleft so it hugs your grid
-                symbol_rect = symbol_surf.get_rect(topleft=(x, y))
+                # Blit onto the screen
+                self.SamplePanel.screen.blit(item['shape'], (50 + x, y))
 
-                self.SamplePanel.screen.blit(symbol_surf, symbol_rect)
 
     def set_sample(self, sample):
         self.Sample.add_user_sample(sample)

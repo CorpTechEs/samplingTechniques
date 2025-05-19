@@ -5,7 +5,7 @@ class TechniqueButton(PanelUI):
     def __init__(self):
         super().__init__()
         self.techniques = [ "SRS", "SYS", "STRATIFIED", "CLUSTER"]
-        
+
         self.technique_s = [ self.load_image("./uiElement/srs_btn.png"), 
                            self.load_image("./uiElement/sys_btn (2).png"), 
                            self.load_image("./uiElement/strati_btn (2).png"), 
@@ -17,7 +17,7 @@ class TechniqueButton(PanelUI):
                            self.load_image("./uiElement/strati_btn.png"), 
                            self.load_image("./uiElement/cluster_btn (2).png")
                         ]
-        
+
         self.selected_index = None
         self.rects = []  # Store button rectangles for interaction
         self.positions = [(0, 75), (200, 75), (380, 75), (600, 75)]

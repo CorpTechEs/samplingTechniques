@@ -5,7 +5,7 @@ import random
 class PopulationModel:
     def __init__(self, size, avators):
         self.size = size
-        self.shapes = ['⚫','◾','⬜','⬛','◼️','◽','🟫','🟨','🟩','⏹️','🔺','🔻','🔽','🔼','◀️','▶️', '⚪', '🟤','🟣','⭕','⏺️','🔲','▪️','▫️','◻️']
+        #self.shapes = ['⚫','◾','⬜','⬛','◼️','◽','🟫','🟨','🟩','⏹️','🔺','🔻','🔽','🔼','◀️','▶️', '⚪', '🟤','🟣','⭕','⏺️','🔲','▪️','▫️','◻️']
         self.avators = avators
         self.colors = [(255, 20, 147), (0, 191, 255), (152, 255, 152),(255, 165, 0), (255, 255, 102), (0, 0, 0), (255, 255, 255), (148, 0, 211)]
         self.shades = ['light', 'dark']
@@ -16,7 +16,7 @@ class PopulationModel:
 
 
     def generate_population(self):
-        shapes = self.shapes
+        # shapes = self.shapes
         colors = self.colors
         shades = self.shades
         sizes = self.sizes
@@ -27,8 +27,8 @@ class PopulationModel:
         for i in range(self.size):
           population.append({
                 'id': i,
-                'shape': random.choice(shapes),
-                'avators': random.choice(avators),
+                # 'shape': random.choice(shapes),
+                'shape': random.choice(avators),
                 'color': random.choice(colors),
                 'size': random.choice(sizes),
                 'shade': random.choice(shades),
