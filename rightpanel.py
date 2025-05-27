@@ -16,21 +16,22 @@ class RightPanel(PanelUI):
         # panels population and sample
         self.screen.blit(self.sample_panel, (460, 200))
 
-        self.right_rect = pygame.Rect(self.width - self.panel_padding - self.panel_width, self.panel_top, self.panel_width, self.panel_height)
-        pygame.draw.rect(self.screen, (190, 190, 190), self.right_rect, 3)
-        self.sample_label = self.font.render("Sample", True, (0, 0, 0))
-        self.screen.blit(self.sample_label, self.sample_label.get_rect(center=(self.right_rect.centerx, self.right_rect.top - 20)))
+        self.right_rect = self.btn_challenge.get_rect(topleft=(580, 670))
+        # pygame.draw.rect(self.screen, (190, 190, 190), self.right_rect, 3)
+        # self.sample_label = self.font.render("Sample", True, (0, 0, 0))
+        # self.screen.blit(self.sample_label, self.sample_label.get_rect(center=(self.right_rect.centerx, self.right_rect.top - 20)))
         self.draw_btn()
 
     def draw_btn(self):
         self.screen.blit(self.btn_challenge, (580, 670))
+        
         # === GO AGAINST BUTTON (inside sample panel at bottom center) ===
-        go_btn_width, go_btn_height = 100, 30
-        go_btn_x = self.right_rect.centerx - go_btn_width // 2
-        go_btn_y = self.right_rect.bottom - go_btn_height - 10
-        pygame.draw.rect(self.screen, (0, 128, 255), (go_btn_x, go_btn_y, go_btn_width, go_btn_height))
-        go_label = self.font.render("Go Against", True, (255, 255, 255))
-        self.screen.blit(go_label, go_label.get_rect(center=(go_btn_x + go_btn_width // 2, go_btn_y + go_btn_height // 2)))
+        # go_btn_width, go_btn_height = 100, 30
+        # go_btn_x = self.right_rect.centerx - go_btn_width // 2
+        # go_btn_y = self.right_rect.bottom - go_btn_height - 10
+        # pygame.draw.rect(self.screen, (0, 128, 255), (go_btn_x, go_btn_y, go_btn_width, go_btn_height))
+        # go_label = self.font.render("Go Against", True, (255, 255, 255))
+        # self.screen.blit(go_label, go_label.get_rect(center=(go_btn_x + go_btn_width // 2, go_btn_y + go_btn_height // 2)))
 
     def handle_event(self, event):
             """

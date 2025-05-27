@@ -1,6 +1,4 @@
 # Model | Data Processing
-import pygame
-import pygame.freetype
 from sample import SampleModel
 from rightpanel import RightPanel
 
@@ -24,11 +22,11 @@ class SampleController:
             for idx, item in enumerate(self.sample):
 
                 # position using your supplied offsets + consistent spacing
-                x = samp_x + 30
-                y = panel_y + 30 + idx * 60
+                x = idx * 45
+                y = panel_y + idx * 60
 
                 # Blit onto the screen
-                self.SamplePanel.screen.blit(item['shape'], (50 + x, y))
+                self.SamplePanel.screen.blit(item['shape'], (510 + x, 320))
 
 
     def set_sample(self, sample):

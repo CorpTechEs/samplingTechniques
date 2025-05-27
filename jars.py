@@ -21,11 +21,3 @@ class CollectionJar (PanelUI):
         self.screen.blit(self.jarB, (800, 395))  # draw jar
         self.screen.blit(self.jarC, (800, 200))  # draw jar
         self.screen.blit(self.jarD, (800, 0))    # draw jar
-
-        # === U-shaped Squares at Bottom, spread in center 50% ===
-        for i in range(self.jars):
-            x = self.u_area_start_x + i * (self.u_box_size + self.u_gap)
-            # Draw U-shape (left, bottom, right)
-            pygame.draw.line(self.screen, (0, 0, 0), (x, self.u_y_top), (x, self.u_y_top + self.u_box_size), 3)
-            pygame.draw.line(self.screen, (0, 0, 0), (x, self.u_y_top + self.u_box_size), (x + self.u_box_size, self.u_y_top + self.u_box_size), 3)
-            pygame.draw.line(self.screen, (0, 0, 0), (x + self.u_box_size, self.u_y_top), (x + self.u_box_size, self.u_y_top + self.u_box_size), 3)
