@@ -4,32 +4,57 @@ from populationController import PopulationController
 from sampleController import SampleController
 from sampleTController import SampleTechniqueController
 from jarController import CollectionJarController
+from button import ImageButton
 
 pygame.init()
-controller = Controller(10)
-PopulationPanel = PopulationController(population_size=50)
+controller = Controller(0)
+PopulationPanel = PopulationController(population_size=0)
 PopulationPanel.create_population()
 
-SamplePanel = SampleController(sample_size=5)
+SamplePanel = SampleController(sample_size=0)
 SampleTechnique = SampleTechniqueController()
 SampleTechnique.model.set_population(PopulationPanel.population)
 SampleTechnique.model.set_sample_size(SamplePanel.sample_size)
 Jars = CollectionJarController()
 SampleMode = None
+inputBtn = ImageButton()
+
 
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
             exit()
-        SampleTechnique.handle_event(event)
-        PopulationPanel.PopulationPanel.handle_event(event)
-        SamplePanel.SamplePanel.handle_event(event)
+        if not inputBtn.modal_active:
+            SampleTechnique.handle_event(event)
+            PopulationPanel.PopulationPanel.handle_event(event)
+            SamplePanel.SamplePanel.handle_event(event)
+        inputBtn.handle_event(event)
+        # Just after inputBtn.handle_event(event)
+        if not inputBtn.modal_active and inputBtn.inputs:
+            if "Population" in inputBtn.inputs:
+                controller      = Controller(inputBtn.inputs["Population"])
+                PopulationPanel = PopulationController(population_size=inputBtn.inputs["Population"])
+                PopulationPanel.create_population()
+                SampleTechnique.model.set_population(PopulationPanel.population)
+
+            if "Sample" in inputBtn.inputs:
+                SamplePanel = SampleController(sample_size=inputBtn.inputs["Sample"])
+                SampleTechnique.model.set_sample_size(SamplePanel.sample_size)
+
+            if "Jars" in inputBtn.inputs:
+                # If you want to do anything special with jars in the future
+                pass
+            
+            inputBtn.inputs.clear()  # Reset after applying
+
+        
 
     controller.view.screen.blit(controller.view.bg, (0, 0))
     PopulationPanel.draw_pop()
     SamplePanel.SamplePanel.draw()
     SampleTechnique.draw()
+    inputBtn.draw()
 
     if SampleTechnique.model.locked:
         controller.update()
@@ -114,6 +139,7 @@ while True:
     
     controller.check_spokes_for_collision()
     controller.render_frame()
+
     
     pygame.display.flip()
     controller.model.clock.tick(60)
