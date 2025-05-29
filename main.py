@@ -5,6 +5,7 @@ from sampleController import SampleController
 from sampleTController import SampleTechniqueController
 from jarController import CollectionJarController
 from button import ImageButton
+from notification import Notification
 
 pygame.init()
 controller = Controller(0)
@@ -18,6 +19,7 @@ SampleTechnique.model.set_sample_size(SamplePanel.sample_size)
 Jars = CollectionJarController()
 SampleMode = None
 inputBtn = ImageButton()
+notificationBar = Notification()
 
 
 while True:
@@ -52,6 +54,7 @@ while True:
     PopulationPanel.draw_pop()
     SamplePanel.SamplePanel.draw()
     SampleTechnique.draw()
+    notificationBar.draw_notification_bar("")
     inputBtn.draw()
 
     if SampleTechnique.model.locked:
