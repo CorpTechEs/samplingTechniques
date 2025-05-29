@@ -5,15 +5,13 @@ class ImageButton(PanelUI):
     def __init__(self):
         super().__init__()
         self.image = self.load_image("./uiElement/challenge_btn (2).png")  # This is a loaded Pygame surface (e.g., from pygame.image.load)
-        self.rect = self.image.get_rect(topleft=(0, 0))
+        self.rect = self.image.get_rect(topleft=(900,25))
         self.callback = self.draw_modal  # Function to call on click
         self.modal_active = False
         self.input_text = ""
         self.input_active = False
         self.responses = {}  # Store selected dropdown + typed value
         self.inputs = {}  # e.g., {"Population": 50, "Sample": 5}
-
-        
 
         # Dropdown data
         self.dropdown_options = ["Jars", "Sample", "Population"]
@@ -25,7 +23,7 @@ class ImageButton(PanelUI):
         self.input_rect = pygame.Rect(250, 180, 300, 40)
 
     def draw(self):
-        self.draw_btn(self.image, (0,0))
+        self.draw_btn(self.image, (900,25))
 
         # Draw the modal if active
         if self.modal_active:

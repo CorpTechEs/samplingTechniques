@@ -48,8 +48,6 @@ while True:
             
             inputBtn.inputs.clear()  # Reset after applying
 
-        
-
     controller.view.screen.blit(controller.view.bg, (0, 0))
     PopulationPanel.draw_pop()
     SamplePanel.SamplePanel.draw()
