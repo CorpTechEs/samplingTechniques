@@ -7,7 +7,7 @@ from jarController import CollectionJarController
 
 pygame.init()
 controller = Controller(10)
-PopulationPanel = PopulationController(population_size=10)
+PopulationPanel = PopulationController(population_size=50)
 PopulationPanel.create_population()
 
 SamplePanel = SampleController(sample_size=5)
@@ -23,6 +23,7 @@ while True:
             pygame.quit()
             exit()
         SampleTechnique.handle_event(event)
+        PopulationPanel.PopulationPanel.handle_event(event)
 
     controller.view.screen.blit(controller.view.bg, (0, 0))
     PopulationPanel.draw_pop()

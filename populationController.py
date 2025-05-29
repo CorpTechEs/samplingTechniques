@@ -21,11 +21,4 @@ class PopulationController:
     def draw_pop(self):
         # First draw the panel background, borders, etc.
         self.PopulationPanel.draw()
-        xx = 0
-
-        for idx, item in enumerate(self.population):
-
-            # Blit onto the screen
-            self.PopulationPanel.screen.blit(item['shape'], (50 + xx, 320))
-            xx += 25
-        
+        self.PopulationPanel.scrollable_panel(self.population)
