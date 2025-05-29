@@ -15,18 +15,7 @@ class SampleController:
     def draw_samp(self):
         # Mock shapes for population going to model or controller
         if len(self.sample) > 0:
-
-            samp_x   = self.SamplePanel.width  - self.SamplePanel.panel_width - self.SamplePanel.panel_padding
-            panel_y  = 180
-
-            for idx, item in enumerate(self.sample):
-
-                # position using your supplied offsets + consistent spacing
-                x = idx * 45
-                y = panel_y + idx * 60
-
-                # Blit onto the screen
-                self.SamplePanel.screen.blit(item['shape'], (510 + x, 320))
+            self.SamplePanel.scrollable_panel(self.sample)
 
 
     def set_sample(self, sample):

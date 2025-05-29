@@ -3,12 +3,15 @@ from sysui import PanelUI
 
 class RightPanel(PanelUI):
     def __init__(self):
-        super().__init__()
+        self.sample_panel = self.load_image("./uiElement/sample_panel.png")
+        self.panel_width    = self.sample_panel.get_width()
+        self.panel_height   = self.sample_panel.get_height()
+        super().__init__(self.panel_width, self.panel_height, "sample")
         self.right_rect = None
         self.go_btn_clickable = True
         self.result_text  = None
         self.label, self.pos = None, None
-        self.sample_panel = self.load_image("./uiElement/sample_panel.png")
+
         self.btn_challenge = self.load_image("./uiElement/challenge_btn.png")
         self.btn_challenge_2 = self.load_image("./uiElement/challenge_btn (2).png")
 
@@ -17,21 +20,11 @@ class RightPanel(PanelUI):
         self.screen.blit(self.sample_panel, (460, 200))
 
         self.right_rect = self.btn_challenge.get_rect(topleft=(580, 670))
-        # pygame.draw.rect(self.screen, (190, 190, 190), self.right_rect, 3)
-        # self.sample_label = self.font.render("Sample", True, (0, 0, 0))
-        # self.screen.blit(self.sample_label, self.sample_label.get_rect(center=(self.right_rect.centerx, self.right_rect.top - 20)))
         self.draw_btn()
 
     def draw_btn(self):
         self.screen.blit(self.btn_challenge, (580, 670))
         
-        # === GO AGAINST BUTTON (inside sample panel at bottom center) ===
-        # go_btn_width, go_btn_height = 100, 30
-        # go_btn_x = self.right_rect.centerx - go_btn_width // 2
-        # go_btn_y = self.right_rect.bottom - go_btn_height - 10
-        # pygame.draw.rect(self.screen, (0, 128, 255), (go_btn_x, go_btn_y, go_btn_width, go_btn_height))
-        # go_label = self.font.render("Go Against", True, (255, 255, 255))
-        # self.screen.blit(go_label, go_label.get_rect(center=(go_btn_x + go_btn_width // 2, go_btn_y + go_btn_height // 2)))
 
     def handle_event(self, event):
             """
@@ -60,3 +53,5 @@ class RightPanel(PanelUI):
     def draw_result(self, result_text):
         if result_text:
             label, pos = self.create_text_label(result_text, (10,20))
+    
+    
