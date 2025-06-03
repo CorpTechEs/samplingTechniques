@@ -4,8 +4,8 @@ from sysui import PanelUI
 class ImageButton(PanelUI):
     def __init__(self):
         super().__init__()
-        self.image = self.load_image("./uiElement/challenge_btn (2).png")  # This is a loaded Pygame surface (e.g., from pygame.image.load)
-        self.rect = self.image.get_rect(topleft=(920,0))
+        self.image = self.load_image("./uiElement/populate_btn.png")  # This is a loaded Pygame surface (e.g., from pygame.image.load)
+        self.rect = self.image.get_rect(topleft=(100, 670))
         self.callback = self.draw_modal  # Function to call on click
         self.modal_active = False
         self.input_text = ""
@@ -23,7 +23,7 @@ class ImageButton(PanelUI):
         self.input_rect = pygame.Rect(250, 180, 300, 40)
 
     def draw(self):
-        self.draw_btn(self.image, (920,0))
+        self.draw_btn(self.image, (100, 670))
 
         # Draw the modal if active
         if self.modal_active:

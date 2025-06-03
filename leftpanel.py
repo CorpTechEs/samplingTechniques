@@ -14,4 +14,4 @@ class LeftPanel(PanelUI):
     def draw(self):
         # panels population and sample
         self.screen.blit(self.pop_panel, (0, 200))
-        self.draw_btn(self.btn_populate, (100, 670))
+        # self.draw_btn(self.btn_populate, (100, 670))
