@@ -12,6 +12,11 @@ class RightPanel(PanelUI):
         self.result_text  = None
         self.label, self.pos = None, None
 
+        # New attributes for storing result
+        self.winner = None
+        self.user_score = 0
+        self.system_score = 0
+
         self.btn_challenge = self.load_image("./uiElement/challenge_btn.png")
         self.btn_challenge_2 = self.load_image("./uiElement/challenge_btn (2).png")
 
@@ -50,8 +55,16 @@ class RightPanel(PanelUI):
             rect = pygame.Rect(self.system_x, self.y + i * (self.box_size + self.gap), self.box_size, self.box_size)
             pygame.draw.rect(self.screen, (102, 178, 255), rect)
     
-    def draw_result(self, result_text):
-        if result_text:
-            label, pos = self.create_text_label(result_text, (10,20))
+    def draw_result_text(self, winner, u_score, m_score):
+        if winner is not None:
+            result = f"{winner} wins ({u_score} vs {m_score})"
+            font = pygame.font.SysFont("arial", 15, bold=True)
+            text = font.render(result, True, (0, 0, 0))  # Black text
+            text_rect = text.get_rect(center=(self.width - 500, 25))  # Top-center of the panel
+            self.screen.blit(text, text_rect)
+
+    def set_winner(self, winner=None):
+        self.winner = winner
+
     
     

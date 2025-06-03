@@ -13,6 +13,7 @@ sample_set      = False
 system_sample   = []
 pop_size        = 0
 sample_size     = 0
+winner, u_score, m_score = None, 0, 0
 controller      = Controller(0)
 PopulationPanel = PopulationController(population_size=pop_size)
 PopulationPanel.create_population()
@@ -151,7 +152,11 @@ while True:
     #     print("Select a sampling technique first!")
     if SamplePanel.ready_to_compare:
         SamplePanel.draw_samp()
-        SamplePanel.handle_event(event, PopulationPanel.population)
+        SamplePanel.handle_event(event)
+
+    if SamplePanel.SamplePanel.winner_ready:
+        SamplePanel.SamplePanel.draw_result_text(SamplePanel.winner, SamplePanel.u_score, SamplePanel.m_score)
+        SamplePanel.reset_sampling()
     
     # SamplePanel.draw_winner()
     
