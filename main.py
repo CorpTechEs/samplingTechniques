@@ -8,11 +8,16 @@ from button import ImageButton
 from notification import Notification
 
 pygame.init()
-controller = Controller(0)
-PopulationPanel = PopulationController(population_size=0)
+pop_set         = False
+sample_set      = False
+system_sample   = []
+pop_size        = 0
+sample_size     = 0
+controller      = Controller(0)
+PopulationPanel = PopulationController(population_size=pop_size)
 PopulationPanel.create_population()
 
-SamplePanel = SampleController(sample_size=0)
+SamplePanel = SampleController(sample_size=sample_size)
 SampleTechnique = SampleTechniqueController()
 SampleTechnique.model.set_population(PopulationPanel.population)
 SampleTechnique.model.set_sample_size(SamplePanel.sample_size)
@@ -35,19 +40,29 @@ while True:
         # Just after inputBtn.handle_event(event)
         if not inputBtn.modal_active and inputBtn.inputs:
             if "Population" in inputBtn.inputs:
-                controller      = Controller(inputBtn.inputs["Population"])
-                PopulationPanel = PopulationController(population_size=inputBtn.inputs["Population"])
+                pop_size        = inputBtn.inputs["Population"]
+                controller      = Controller(pop_size)
+                PopulationPanel = PopulationController(population_size=pop_size)
                 PopulationPanel.create_population()
                 SampleTechnique.model.set_population(PopulationPanel.population)
+                pop_set = True
 
             if "Sample" in inputBtn.inputs:
-                SamplePanel = SampleController(sample_size=inputBtn.inputs["Sample"])
+                sample_size = inputBtn.inputs["Sample"]
+                SamplePanel = SampleController(sample_size=sample_size)
                 SampleTechnique.model.set_sample_size(SamplePanel.sample_size)
+                sample_set = True
 
             if "Jars" in inputBtn.inputs:
                 # If you want to do anything special with jars in the future
                 pass
             
+            if pop_set and sample_set:
+                SamplePanel.Sample.generate_system_sample(sample_size, SampleTechnique.model.population)
+                system_sample   = SamplePanel.Sample.system_sample
+                pop_set         = False
+                sample_set      = False
+
             inputBtn.inputs.clear()  # Reset after applying
 
     controller.view.screen.blit(controller.view.bg, (0, 0))
@@ -56,8 +71,10 @@ while True:
     SampleTechnique.draw()
     notificationBar.draw_notification_bar("")
     inputBtn.draw()
+    if system_sample:
+        SamplePanel.SamplePanel.draw_right_column_items(system_sample)
 
-    if SampleTechnique.model.locked:
+    if SampleTechnique.model.locked and (pop_size > 0 and sample_size > 0):
         controller.update()
         controller.trigger_spin()
         

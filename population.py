@@ -11,7 +11,7 @@ class PopulationModel:
         self.shades = ['light', 'dark']
         self.sizes = ['small', 'medium']
         self.points = [1, 2, 3, 4, 5]
-        self.population = self.generate_population()
+        self.population = [] # self.generate_population()
         self.clusters = []
 
 

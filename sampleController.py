@@ -59,7 +59,7 @@ class SampleController:
 
     def _run_go_sequence(self, pop): 
         # Ensure user sample is complete
-        user_sample = self.sample
+        # user_sample = self.sample
         # if len(user_sample) < self.sample_size:
         #     print("Finish your sample first!")
         #     return
