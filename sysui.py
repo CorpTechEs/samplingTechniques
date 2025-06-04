@@ -49,8 +49,8 @@ class PanelUI(UI):
         font = pygame.font.SysFont("arial", 18, bold=True)
     
         if population:
-            item_width = population[0]['shape'].get_width()
-            item_height = population[0]['shape'].get_height()
+            item_width = population[0]['shape'].image.get_width()
+            item_height = population[0]['shape'].image.get_height()
     
             x = 0
             y = 0
@@ -60,7 +60,7 @@ class PanelUI(UI):
                     x = 0
                     y += item_height + item_spacing_y  # Move to next row if overflow
 
-                self.scroll_surface.blit(item['shape'], (x, y))
+                self.scroll_surface.blit(item['shape'].image, (x, y))
 
                 # Draw point below the shape
                 point_text = font.render(str(item.get('point', 0)), True, (255, 255, 255))
@@ -109,8 +109,8 @@ class PanelUI(UI):
         item_spacing_x = 5
         item_spacing_y = 10  # Slightly larger to accommodate text below
 
-        item_width = items[0]['shape'].get_width()
-        item_height = items[0]['shape'].get_height()
+        item_width = items[0]['shape'].image.get_width()
+        item_height = items[0]['shape'].image.get_height()
 
         items_per_row = max(1, (column_width - item_spacing_x) // (item_width + item_spacing_x))
 
@@ -122,7 +122,7 @@ class PanelUI(UI):
 
         for index, item in enumerate(items):
             # Draw item shape
-            self.screen.blit(item['shape'], (x, y))
+            self.screen.blit(item['shape'].image, (x, y))
 
             # Draw point value below the shape
             point_text = font.render(str(item.get('point', 0)), True, (255, 255, 255))

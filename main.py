@@ -108,8 +108,6 @@ while True:
             size    = PopulationPanel.Population.group_by('size')   # these elements need to appear in the respective jar
             shade   = PopulationPanel.Population.group_by('shade')  # these elements need to appear in the respective jar
 
-
-
             # did we finish a spin?
             spoke_idx = controller.check_for_spin_end()
             if spoke_idx is not None:
