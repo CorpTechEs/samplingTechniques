@@ -105,7 +105,7 @@ class SampleTechniqueModel:
 
         return len(self.sample_list) == self.sample_size
 
-    def generate_clusters(self, num_clusters):
+    def generate_clusters(self, num_clusters, Jar):
         """
         Partition the population into num_clusters random clusters.
         """
@@ -117,13 +117,15 @@ class SampleTechniqueModel:
         # Shuffle copy of population
         pop_copy = self.population[:]
         random.shuffle(pop_copy)
+        print(pop_copy)
+        Jar.cluster_display( pop_copy )
         # Evenly distribute into clusters
         self.clusters = [[] for _ in range(num_clusters)]
         for idx, member in enumerate(pop_copy):
             self.clusters[idx % num_clusters].append(member)
         self.current_cluster = None
     
-    def record_spin_cluster(self, spoke_number, num_clusters):
+    def record_spin_cluster(self, spoke_number, num_clusters, Jar):
         """
         For cluster sampling:
         - First spin selects which cluster to use
@@ -132,7 +134,7 @@ class SampleTechniqueModel:
         """
         # Ensure clusters exist
         if not self.clusters:
-            self.generate_clusters(num_clusters)
+            self.generate_clusters(num_clusters, Jar)
             return False
         # First spin: select cluster
         if self.current_cluster is None:

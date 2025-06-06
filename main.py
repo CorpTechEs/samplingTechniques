@@ -27,7 +27,7 @@ SampleTechnique.model.set_sample_size(SamplePanel.sample_size)
 Jars = CollectionJarController()
 SampleMode = None
 inputBtn = ImageButton("./uiElement/populate_btn.png", (100, 670), ["Jars", "Sample", "Population"])
-StratBtn = ImageButton("./uiElement/challenge_btn.png", (100, 0), ["head", "size", "color", "shape"])
+StratBtn = ImageButton("./uiElement/challenge_btn.png", (100, 0), ["head", "size", "color"])
 notificationBar = Notification()
 
 
@@ -52,17 +52,14 @@ while True:
             if "size" in StratBtn.inputs:
                 bias = StratBtn.inputs["size"]
                 Jars.bias = bias
-                print(Jars.bias)
                 dis_set = True
             if "color" in StratBtn.inputs:
                 bias = StratBtn.inputs["color"]
                 Jars.bias = bias
-                print(Jars.bias)
                 dis_set = True
             if "shape" in StratBtn.inputs:
                 bias = StratBtn.inputs["shape"]
                 Jars.bias = bias
-                print(Jars.bias)
                 dis_set = True
 
         if not inputBtn.modal_active and inputBtn.inputs:
@@ -168,8 +165,8 @@ while True:
 
             if spoke_idx is not None:
                 result = int(spoke_idx.data.replace("Segment ", ""))
-                done = SampleTechnique.model.record_spin_cluster(result, 4)
-                print(done)
+                done = SampleTechnique.model.record_spin_cluster(result, 4,Jars)
+
                 if done:
                     sample = SampleTechnique.model.get_sample()
                     SamplePanel.set_sample(sample)

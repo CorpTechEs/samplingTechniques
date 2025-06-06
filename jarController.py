@@ -76,3 +76,48 @@ class CollectionJarController:
                 if "shape" in item:
                     shape_surface = item["shape"].image
                     self.view.screen.blit(shape_surface, (item_x, item_y))
+    
+    
+    def cluster_display(self, categorized_population):
+        jar_positions = {
+            'circle': (800, 575),
+            'star': (800, 395),
+            'square': (800, 200),
+            'pentagon': (800, 0),
+
+            'u': (800, 575),
+            'normal': (800, 395),
+            'n': (800, 200),
+            'zero': (800, 0),
+
+            'u': (800, 575),
+            'normal': (800, 395),
+            'n': (800, 200),
+            'zero': (800, 0),
+
+            (0, 255, 255): (800, 575),
+            (204, 0, 153): (800, 395),
+            (255, 0, 0): (800, 200),
+            (0, 0, 255): (800, 0),
+        }
+
+        for i, item in enumerate(categorized_population):
+            # Get jar position for the current category
+            jar_x, jar_y = jar_positions['u']
+            # Calculate grid layout
+            cols = (self.jar_width - 2 * self.padding) // self.item_box_size
+            rows = (self.jar_height - 2 * self.padding) // self.item_box_size
+            max_items = cols * rows
+            # Skip if exceeding jar capacity
+            if i >= max_items:
+                continue
+            
+            # Grid positioning
+            col = i % cols
+            row = i // cols
+            item_x = jar_x + self.padding + col * self.item_box_size
+            item_y = jar_y + self.padding + row * self.item_box_size
+            # Draw the avatar image
+            if "shape" in item and hasattr(item["shape"], "image"):
+                shape_surface = item["shape"].image
+                self.view.screen.blit(shape_surface, (item_x, item_y))
