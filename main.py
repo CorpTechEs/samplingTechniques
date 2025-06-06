@@ -9,9 +9,11 @@ from notification import Notification
 
 pygame.init()
 pop_set         = False
+dis_set         = False
 sample_set      = False
 system_sample   = []
 pop_size        = 0
+bias            = None
 sample_size     = 0
 winner, u_score, m_score = None, 0, 0
 controller      = Controller(0)
@@ -24,7 +26,8 @@ SampleTechnique.model.set_population(PopulationPanel.population)
 SampleTechnique.model.set_sample_size(SamplePanel.sample_size)
 Jars = CollectionJarController()
 SampleMode = None
-inputBtn = ImageButton()
+inputBtn = ImageButton("./uiElement/populate_btn.png", (100, 670), ["Jars", "Sample", "Population"])
+StratBtn = ImageButton("./uiElement/challenge_btn.png", (100, 0), ["head", "size", "color", "shape"])
 notificationBar = Notification()
 
 
@@ -33,12 +36,35 @@ while True:
         if event.type == pygame.QUIT:
             pygame.quit()
             exit()
-        if not inputBtn.modal_active:
+        if not inputBtn.modal_active or not StratBtn.modal_active:
             SampleTechnique.handle_event(event)
             PopulationPanel.PopulationPanel.handle_event(event)
             SamplePanel.SamplePanel.handle_event(event)
         inputBtn.handle_event(event)
+        StratBtn.handle_event(event)
+
         # Just after inputBtn.handle_event(event)
+        if not StratBtn.modal_active and StratBtn.inputs:
+            if "head" in StratBtn.inputs:
+                bias = StratBtn.inputs["head"]
+                Jars.bias = bias
+                dis_set = True
+            if "size" in StratBtn.inputs:
+                bias = StratBtn.inputs["size"]
+                Jars.bias = bias
+                print(Jars.bias)
+                dis_set = True
+            if "color" in StratBtn.inputs:
+                bias = StratBtn.inputs["color"]
+                Jars.bias = bias
+                print(Jars.bias)
+                dis_set = True
+            if "shape" in StratBtn.inputs:
+                bias = StratBtn.inputs["shape"]
+                Jars.bias = bias
+                print(Jars.bias)
+                dis_set = True
+
         if not inputBtn.modal_active and inputBtn.inputs:
             if "Population" in inputBtn.inputs:
                 pop_size        = inputBtn.inputs["Population"]
@@ -65,6 +91,7 @@ while True:
                 sample_set      = False
 
             inputBtn.inputs.clear()  # Reset after applying
+            StratBtn.inputs.clear()  # Reset after applying
 
     controller.view.screen.blit(controller.view.bg, (0, 0))
     PopulationPanel.draw_pop()
@@ -72,6 +99,7 @@ while True:
     SampleTechnique.draw()
     notificationBar.draw_notification_bar("")
     inputBtn.draw()
+
     if system_sample:
         SamplePanel.SamplePanel.draw_right_column_items(system_sample)
 
@@ -101,38 +129,36 @@ while True:
                 SamplePanel.ready_to_compare = True
                 spoke_idx = None
         elif SampleTechnique.model.selected_technique == 'STRATIFIED':
-            Jars.draw_jar()
-            bias = "size" # find a way to allow he user to input the bias
-            # shape   = PopulationPanel.Population.group_by('shape')  # these elements need to appear in the respective jar
-            # color   = PopulationPanel.Population.group_by('color')  # these elements need to appear in the respective jar
-            # size    = PopulationPanel.Population.group_by('size')   # these elements need to appear in the respective jar
-            # head    = PopulationPanel.Population.group_by('head')  # these elements need to appear in the respective jar
-            discrimiation   = PopulationPanel.Population.group_by(bias)  # these elements need to appear in the respective jar
-            
-
-            Jars.display_items_inside_jars( discrimiation )
-
-            # did we finish a spin?
-            spoke_idx = controller.check_for_spin_end()
-            if spoke_idx is not None:
-                mod_result = int(spoke_idx.data.replace("Segment ", "")) % 4
-
-                if  mod_result == 0:
-                    done = SampleTechnique.model.strat(discrimiation)
-                if mod_result == 1:
-                    done = SampleTechnique.model.strat(discrimiation)
-                if mod_result == 2:
-                    done = SampleTechnique.model.strat(discrimiation)
-                if mod_result == 3:
-                    done = SampleTechnique.model.strat(discrimiation)
+            StratBtn.draw()
+            if bias is None:
+                notificationBar.draw_notification_bar("Please select a bias for stratified sampling!")
                 
-                if done:
-                    sample = SampleTechnique.model.get_sample()
-                    SamplePanel.set_sample(sample)
-                    SamplePanel.ready_to_compare = True
-                    spoke_idx = None
-                    done = None
-                    SampleTechnique.model.locked = False
+            else:
+                Jars.draw_jar()
+                discrimiation   = PopulationPanel.Population.group_by(bias)  # these elements need to appear in the respective jar
+                Jars.display_items_inside_jars( discrimiation )
+
+                # did we finish a spin?
+                spoke_idx = controller.check_for_spin_end()
+                if spoke_idx is not None:
+                    mod_result = int(spoke_idx.data.replace("Segment ", "")) % 4
+
+                    if  mod_result == 0:
+                        done = SampleTechnique.model.strat(discrimiation)
+                    if mod_result == 1:
+                        done = SampleTechnique.model.strat(discrimiation)
+                    if mod_result == 2:
+                        done = SampleTechnique.model.strat(discrimiation)
+                    if mod_result == 3:
+                        done = SampleTechnique.model.strat(discrimiation)
+
+                    if done:
+                        sample = SampleTechnique.model.get_sample()
+                        SamplePanel.set_sample(sample)
+                        SamplePanel.ready_to_compare = True
+                        spoke_idx = None
+                        done = None
+                        SampleTechnique.model.locked = False
 
         elif SampleTechnique.model.selected_technique == 'CLUSTER':
             Jars.draw_jar()

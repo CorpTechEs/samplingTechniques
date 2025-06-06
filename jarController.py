@@ -6,6 +6,7 @@ class CollectionJarController:
     def __init__(self):
         self.model = CollectionJarModel()
         self.view = CollectionJar()
+        self.bias = None
         self.item_box_size = 40  # size of each image box
         self.jar_width = 180
         self.jar_height = 255

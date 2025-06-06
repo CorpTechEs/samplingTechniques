@@ -2,10 +2,11 @@ import pygame
 from sysui import PanelUI
  
 class ImageButton(PanelUI):
-    def __init__(self):
+    def __init__(self, url, position, dropdown_options):
         super().__init__()
-        self.image = self.load_image("./uiElement/populate_btn.png")  # This is a loaded Pygame surface (e.g., from pygame.image.load)
-        self.rect = self.image.get_rect(topleft=(100, 670))
+        self.position = position
+        self.image = self.load_image(url)  # This is a loaded Pygame surface (e.g., from pygame.image.load)
+        self.rect = self.image.get_rect(topleft=position)
         self.callback = self.draw_modal  # Function to call on click
         self.modal_active = False
         self.input_text = ""
@@ -14,7 +15,7 @@ class ImageButton(PanelUI):
         self.inputs = {}  # e.g., {"Population": 50, "Sample": 5}
 
         # Dropdown data
-        self.dropdown_options = ["Jars", "Sample", "Population"]
+        self.dropdown_options = dropdown_options
         self.dropdown_selected = None  # None means no selection yet
         self.dropdown_open = False
         
@@ -23,7 +24,7 @@ class ImageButton(PanelUI):
         self.input_rect = pygame.Rect(250, 180, 300, 40)
 
     def draw(self):
-        self.draw_btn(self.image, (100, 670))
+        self.draw_btn(self.image, self.position)
 
         # Draw the modal if active
         if self.modal_active:
@@ -66,9 +67,17 @@ class ImageButton(PanelUI):
                     if self.dropdown_selected:
                         self.responses[self.dropdown_selected] = self.input_text
                         print(f"Submitted: {self.dropdown_selected} = {self.input_text}")
-                    if self.dropdown_selected and self.input_text.isdigit():
-                        self.inputs[self.dropdown_selected] = int(self.input_text)
-                        print(f"Saved: {self.dropdown_selected} = {self.input_text}")
+                    if self.dropdown_selected:
+                        self.responses[self.dropdown_selected] = self.input_text
+                        print(f"Submitted: {self.dropdown_selected} = {self.input_text}")
+                        
+                        # Try to convert numeric input to int, else store as string
+                        try:
+                            self.inputs[self.dropdown_selected] = int(self.input_text)
+                            print(f"Saved (as int): {self.dropdown_selected} = {self.inputs[self.dropdown_selected]}")
+                        except ValueError:
+                            self.inputs[self.dropdown_selected] = self.input_text
+                            print(f"Saved (as text): {self.dropdown_selected} = {self.inputs[self.dropdown_selected]}")
                     self.input_text = ""
                     self.input_active = False
                     self.dropdown_selected = None
