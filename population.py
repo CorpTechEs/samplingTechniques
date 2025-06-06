@@ -16,28 +16,32 @@ class PopulationModel:
         # shapes = self.shapes
         points = self.points
         avators = self.avators
-        population = []
+        self.population = []
 
         for i in range(self.size):
           avatee = avators[random.choice(range(len(avators)))]
-          population.append({
+          self.population.append({
                 'id': i,
                 'shape': avatee,
+                'head': avatee.head_shape,
                 'color': avatee.color,
                 'size': avatee.legs,
                 'point': random.choice(points)
           })
-        return population
+        return self.population
 
     def get_population(self):
         return self.population
 
     def group_by(self, key):
-        if key not in ['shape', 'color', 'size', 'shade']:
-          raise ValueError(f"Invalid '{key}'. Use 'shape', 'color', 'size', or 'shade'.")
+        valid_keys = ['shape', 'color', 'size', 'head']
+        if key not in valid_keys:
+            raise ValueError(f"Invalid key '{key}'. Use one of: {', '.join(valid_keys)}.")
+
         grouped = defaultdict(list)
         for member in self.population:
-          grouped[member[key]].append(member)
+            grouped[member[key]].append(member)
+
         return dict(grouped)
 
     def get_demographics_summary(self):
